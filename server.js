@@ -4,10 +4,8 @@ import * as url from 'node:url';
 
 import { createRequestHandler } from '@remix-run/express';
 import { broadcastDevReady, installGlobals } from '@remix-run/node';
-import compression from 'compression';
 import 'dotenv/config';
 import express from 'express';
-import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import sourceMapSupport from 'source-map-support';
 
@@ -30,14 +28,8 @@ const remixHandler =
 
 const app = express();
 
-app.use(compression());
-
 // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
 app.disable('x-powered-by');
-
-// set trust proxy
-// https://expressjs.com/en/guide/behind-proxies.html
-app.set('trust proxy', true);
 
 // Remix fingerprints its assets so we can cache forever.
 app.use(
@@ -51,15 +43,7 @@ app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
-// Configure rate limiter
-const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minutes
-    max: 100, // Limit each IP to 50 requests per `window`
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-});
-
-app.all('*', limiter, remixHandler);
+app.all('*', remixHandler);
 
 const port = process.env.PORT || 3000;
 app.listen(port, async () => {
