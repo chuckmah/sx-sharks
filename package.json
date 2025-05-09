@@ -7,8 +7,9 @@
         "build": "remix build",
         "dev": "remix dev --manual -c \"node --watch-path server.js --watch server.js\"",
         "start": "remix build && cross-env NODE_ENV=production node ./server.js",
-        "typecheck": "tsc",
-        "publish:image": "gcloud builds submit --tag gcr.io/predictodds-db/sx-sharks --project predictodds-db"
+        "build:node": "tsc --project tsconfig.node.json",
+        "publish:image": "gcloud builds submit --tag gcr.io/predictodds-db/sx-sharks --project predictodds-db",
+        "updater": "npm run build:node && node ./dist/sharks-db-updater.cjs"
     },
     "dependencies": {
         "@remix-run/css-bundle": "^2.3.1",
@@ -58,7 +59,9 @@
         "postcss-import": "^15.1.0",
         "prettier-plugin-tailwindcss": "^0.5.9",
         "tailwindcss": "^3.3.5",
-        "typescript": "^5.3.2"
+        "typescript": "^5.3.2",
+        "rxjs": "7.8.0",
+        "axios": "1.7.7"
     },
     "engines": {
         "node": ">=18.0.0"

@@ -1,0 +1,36 @@
+{
+    "include": [
+        "remix.env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "node/db/index.cts",
+        "node/sharks-db-updater.cts",
+        "node/db/sportx-market-dao.cts",
+        "node/db/sportx-params-dao.cts",
+        "node/db/sportx-trades-dao.cts",
+        "node/functions/get-settled-sportx-trades.cts",
+        "node/functions/get-fill-order-trades.cts",
+        "node/functions/get-sportx-trades.cts",
+        "node/services/sportx-model.cts",
+        "node/services/sportx-service.cts"
+    ],
+    "compilerOptions": {
+        "lib": ["DOM", "DOM.Iterable", "ES2022"],
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "jsx": "react-jsx",
+        "moduleResolution": "Bundler",
+        "resolveJsonModule": true,
+        "target": "ES2022",
+        "strict": true,
+        "allowJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./app/*"]
+        },
+
+        // Remix takes care of building everything in `remix build`.
+        "noEmit": true
+    }
+}
