@@ -35,6 +35,10 @@ app.use(compression());
 // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
 app.disable('x-powered-by');
 
+// set trust proxy
+// https://expressjs.com/en/guide/behind-proxies.html
+app.set('trust proxy', true);
+
 // Remix fingerprints its assets so we can cache forever.
 app.use(
     '/build',
